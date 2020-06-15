@@ -1,11 +1,14 @@
 import React from 'react'
 import './App.css'
 
+import Header from './Header.js'
+
 const App = () => {
     return (
         <div>
-            <h1>Hello this was edited from NAno</h1>
-        </div>)
+            <Header />
+        </div>
+    )
 }
 
 export default App
