@@ -2,6 +2,7 @@
     margin-top: 50px;
     display: grid;
     grid-template-columns: 100px 1fr 1fr 1fr 100px;
+    grid-template-rows: 300px;
 
 }
 #game-card-image{
