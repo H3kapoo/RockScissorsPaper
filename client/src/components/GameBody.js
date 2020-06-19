@@ -11,6 +11,7 @@ const GameBody = () => {
 
     const [userScore, setUserScore] = useState(0);
     const [compScore, setCompScore] = useState(0);
+    const [tries, setTries] = useState(0);
     const [flag, setFlag] = useState("|");
 
     const [clickToggle, setClickToggle] = useState(false);
@@ -37,12 +38,15 @@ const GameBody = () => {
                 break
         }
         setClickToggle(!clickToggle);
+        setTries(tries + 1);
+
     }
 
     //Rerender status on clickToggle change hook
     useEffect(() => {
         if (flag === "YOU WIN") setUserScore(userScore + 1)
         if (flag === "YOU LOSE") setCompScore(compScore + 1)
+
     }, [clickToggle])
 
 
@@ -53,19 +57,29 @@ const GameBody = () => {
                 <GameCard Result={handleResult} Type={1} Image={"./paper.png"} />
                 <GameCard Result={handleResult} Type={2} Image={"./scissors.png"} />
             </div>
-            <Score Flag={flag} Score={[userScore, compScore]} />
+            <ScoreHistory History={{ history }} />
         </div>
     )
 }
-const Score = (props) => {
+const ScoreHistory = (props) => {
 
-    return (
-        <div id="score-div">
-            <h3 id="h3-pop">Computer Score : {props.Score[1]}</h3>
-            <h3> {"<" + props.Flag + ">"} </h3>
-            <h3 id="h3-pop">Your Score : {props.Score[0]}</h3>
-        </div>)
+    const { userScore, compScore, flag } = props.History
+
+    const histor = new Array(tries).fill(0).map(el => {
+        return (
+            <div id="score-div">
+                <h3 >Computer Score : {compScore}</h3>
+                <h3> {"<" + flag + ">"} </h3>
+                <h3>Your Score : {userScore}</h3>
+            </div>
+        )
+    })
+
+    return histor
+
 }
+
+
 const GameCard = (props) => {
     return (
         <img
